@@ -1,0 +1,741 @@
+###############################################################################
+#               EWallet Credit Clock - Client Core Subroutines
+###############################################################################
+
+
+[ * ]: EWCC Subroutine ConfigReload
+[ I ]: core.config_reload('<config-file type-str>')
+[ O ][ OK  ]: {
+    'failed': False,
+    'config': {
+        'config_timestamp': <config-reload-timestamp type-datetime-object>,
+        'config_file': <file-path type-str>,
+        'log_config': {
+            'log-name': <type-str>,
+            'log-level': <type-str>,
+            'log-dir': <directory-name type-str>,
+            'log-file': <file-name type-str>,
+            'log-path': <file-path type-str>,
+            'log-record-format': <log-record-format-template type-str>,
+            'log-date-format': <log-datetime-format-template type-str>,
+        },
+        'cloud_config': {
+            'ewsc-address': <ewsc-staging-server-address type-str>,
+            'ewsc-port': <ewsc-staging-server-port type-int>,
+            'ewsc-url': <ewsc-instruction-set-url type-str>
+        }
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine ServerOnline
+[ I ]: core.server_online()
+[ O ][ OK  ]: {
+    'failed': False,
+    'server': <status type-str>
+}
+[ 0 ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine ExecuteResource
+[ I ]: core.execute('<resource-label type-str>')
+[ O ][ OK  ]: {
+    'failed': False
+    <instruction-set-response-key type-str>: <instruction-set-response-value>,
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine NewHandlers
+[ I ]: core.new(new='handlers')
+[ O ][ OK  ]: {
+    'failed': False,
+    'actions': {
+        'failed': False,
+        'actions': {
+            '<label>': <handler>
+        },
+    'events': {
+        'failed': False,
+        'events': {
+            '<label>': <handler>
+        }
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine PreviousAction
+[ I ]: core.previous('action')
+[ O ][ OK  ]: {
+    'failed': False,
+    'action': '<action-label>'
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine PreviousEvent
+[ I ]: core.previous('event')
+[ O ][ OK  ]: {
+    'failed': False,
+    'event': '<event-label>'
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine PreviousSpecificAction
+[ I ]: core.previous('<action-label>')
+[ O ][ OK  ]: {
+    'failed': False
+    '<instruction-set-key>': <instruction-set-value>
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine Previous
+[ I ]: core.previous()
+[ O ][ OK  ]: {
+    'failed': False,
+    'execution': 'action',
+    'previous': 'RequestClientID'
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine PurgeActionResourceHandlerSpecifiedValueSet
+[ I ]: core.purge('Resource', actions=True, purge=['<field-label>'])
+[ O ][ OK  ]: {
+    'failed': False,
+    '<action-handler1-label>': {
+        'failed': False,
+        'updated': <purged-field-set type-list>,
+        'state': {
+            'create_date': <creation-date type-datetime-object>,
+            'write_date': <last-write-date type-datetime-object>,
+            'instruction_set': <instruction-set type-dict>,
+            'instruction_set_response': <instruction-set-response type-dict>,
+            'response': <raw-response type-http-request-object>,
+            'timestamp': <last-execution-timestamp type-datetime-object>,
+            'status': <execution-success-status type-bool>,
+        }
+    }
+    '<action-handlerN-label>': {
+        'failed': False,
+        'updated': <purged-field-set type-list>,
+        'state': <action-handler-values type-dict>
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine PurgeActionResourceHandlerValueSet
+[ I ]: core.purge(
+    'Resource',
+    actions=True
+)
+[ O ][ OK  ]: {
+    'failed': False,
+    '<action-handler1-label>': {
+        'failed': False,
+        'updated': <purged-field-set type-list>,
+        'state': {
+            'create_date': <creation-date type-datetime-object>,
+            'write_date': <last-write-date type-datetime-object>,
+            'instruction_set': <instruction-set type-dict>,
+            'instruction_set_response': <instruction-set-response type-dict>,
+            'response': <raw-response type-http-request-object>,
+            'timestamp': <last-execution-timestamp type-datetime-object>,
+            'status': <execution-success-status type-bool>,
+        }
+    },
+    '<action-handlerN-label>': {
+        'failed': False,
+        'updated': <purged-field-set type-list>,
+        'state': <action-handler-values type-dict>
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine PurgeSpecificConfigValues
+[ I ]: core.purge('Config')
+[ O ][ OK  ]: {
+    'failed': False,
+    'updated': <config-field-set type-list>,
+    'config': {
+        'config_timestamp': <config-init-timestamp type-datetime-object>,
+        '<specified-field-label>': <field-default-value>,
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine PurgeCore
+[ I ]: core.purge('Core')
+[ I ]: core.purge('')
+[ O ][ OK  ]: {
+    'failed': False,
+    'updated': <purge-core-field-set type-list>,
+    'state': {
+        'create_date': <creation-date type-datetime-object>,
+        'write_date': <last-write-date type-datetime-object>,
+        'actions': {},
+        'events': {},
+        'status': False,
+        'instruction_set': {},
+        'instruction_set_response': {},
+        'response': None,
+        'timestamp': None,
+        'config_file': '',
+        'config': {
+            'config_timestamp': <config-init-timestamp type-datetime-object>,
+            'config_file': '',
+            'log_config': {},
+            'cloud_config': {}
+        },
+        'execution_category': '',
+        'previous_label': '',
+        'previous_action': '',
+        'previous_event': ''
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC PurgeResource
+[ I ]: core.purge('Resource')
+[ O ][ OK  ]: {
+    'failed': False,
+    '<action-handler-label>': {
+        'failed': False,
+        'updated': <purge-field-map type-list>,
+        'state': {
+        'create_date': <creation-date type-datetime-object>,
+        'write_date': <last-write-date type-datetime-object>,
+            'instruction_set': <instruction-set-default-values type-dict>,
+            'instruction_set_response': {},
+            'response': None,
+            'timestamp': None,
+            'status': False,
+            'previous_label': '',
+        }
+    },
+    'event-handler-label': {
+        'failed': False,
+        'updated': <purge-field-map type-list>,
+        'state': <event-handler-values type-dict>,
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine PurgeSpecificConfigValues
+[ I ]: core.purge(
+    'Config',
+    purge=['<config-field type-str>']
+)
+[ O ][ OK  ]: {
+    'failed': False,
+    'updated': <purge-field-set type-list>,
+    'config': {
+        'config_timestamp': <config-init-timestamp type-datetime-object>,
+        'config_file': <config-file-path type-str>,
+        'log_config': <log-setup-section type-dict>,
+        'cloud_config': <cloud-setup-section type-dict>
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine PurgeSpecificCoreValues
+[ I ]: core.purge('Core', purge=['<core-field type-str>'])
+[ I ]: core.purge('', purge=['<core-field type-str>'])
+[ O ][ OK  ]: {
+    'failed': False,
+    'updated': <purge-field-set type-list>,
+    'state': {
+            'create_date': <creation-date type-datetime-object>,
+            'write_date': <last-write-date type-datetime-object>,
+        'actions': {
+            '<action-label type-str>': <action-handler type-handler-object>,
+        },
+        'events': {
+            '<event-label type-str>': <event-handler type-handler-object>,
+        },
+        'status': <last-execution-response-status type-bool>,
+        'instruction_set': <last-execution-instruction-set type-dict>,
+        'instruction_set_response': <last-execution-instruction-set-response type-dict>,
+        'response': <last-execution-raw-response type-http-request-object>,
+        'timestamp': <last-execution-timestamp type-datetime-object>,
+        'config_file': <core-config-file-path type-str>,
+        'config': {
+            'config_timestamp': <config-init-timestamp type-datetime-object>,
+            'config_file': <config-file-path type-str>,
+            'log_config': <log-setup-section type-dict>,
+            'cloud_config': <cloud-setup-section type-dict>
+        },
+        'execution_category': <last-execution-type type-str>,
+        'previous_label': <last-execution-label type-str>,
+        'previous_action': <last-action-execution-label type-str>,
+        'previous_event': <last-exent-execution-label type-str>
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine SpecificLastResponse -
+[ I ]: core.last_response('<handler-label type-str>')
+[ O ][ OK  ]: {
+    'failed': False,
+    '<instruction-set-response-key>': <instruction-set-response-value>,
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine ExecutionLastResponse -
+[ I ]: core.last_response(raw=False)
+[ O ][ OK  ]: {
+    'failed': False
+    '<instruction-set-response-key>': <instruction-set-response-value>
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine RawLastResponse -
+[ I ]: core.last_response(raw=True)
+[ O ][ OK  ]: <response type-http-request-object>
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine SpecificActionLastResponse -
+[ I ]: core.actions['<action-label type-str>'].last_response()
+[ I ]: core.actions['<action-label type-str>'].last_response(raw=False)
+[ O ][ OK  ]: {
+    'failed': False,
+    '<instruction-set-response-key>': <instruction-set-response-value>
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine SpecificActionRawLastResponse -
+[ I ]: core.actions['<action-label type-str>'].last_response(raw=True)
+[ O ][ OK  ]: <response type-http-request-object>
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine SetCoreConfigValues
+[ I ]: core.set_values(
+    'Config',
+    **{'<config-field-label type-str>': <field-value>}
+)
+[ O ][ OK  ]: {
+    'failed': False,
+    'updated': <updated-config-field-set type-list>,
+    'config': {
+        'config_timestamp': <config-update-timestamp type-datetime-object>,
+        'config_file': <config-file-path type-str>,
+        'log_config': <log-settup-section type-dict>,
+        'cloud_config': <cloud-settup-section type-dict>
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine SetCoreValues
+[ I ]: core.set_values(
+    'Core',
+    **{'<core-field-label type-str>': <field-value>}
+)
+[ I ]: core.set_values(
+    '',
+    **{'<core-field-label type-str>': <field-value>}
+)
+[ O ][ OK  ]: {
+    'failed': False,
+    'updated': <updated-core-field-set type-list>,
+    'state': {
+        'create_date': <creation-date type-datetime-object>,
+        'write_date': <last-write-date type-datetime-object>,
+        'actions': {
+            '<action-label type-str>': <action-handler type-handler-object>
+        },
+        'events': {
+            '<event-label type-str>': <event-handler type-handler-object>
+        },
+        'status': <last-execution-response-status type-bool>,
+        'instruction_set': <last-execution-instruction-set type-dict>,
+        'instruction_set_response': <last-execution-instruction-set-response type-dict>,
+        'response': <last-execution-response type-http-request-object>,
+        'timestamp': <last-execution-timestamp type-datetime-object>,
+        'config_file': <core-config-file-path type-str>,
+        'config': {
+            'config_timestamp': <config-init-timestamp type-datetime-object>,
+            'config_file': <config-file-path type-str>,
+            'log_config': <log-settup-section type-dict>,
+            'cloud_config': <cloud-settup-section type-dict>
+        },
+        'execution_category': <last-execution-type type-str>,
+        'previous_label': <last-execution-label type-str>,
+        'previous_action': <last-action-execution-label type-str>,
+        'previous_event': <last-event-execution-label type-str>
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine SetResourceInstruction -
+[ I ]: core.set_values(
+    '<resource-label type-str>',
+    **{'<resource-field type-str>': <field-value>}
+)
+[ O ][ OK  ]: {
+    'failed': False,
+    'updated': <updated-field-set type-list>,
+    'instruction_set': <modified-instruction-set type-dict>
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine SetupSpecificHandlers -
+[ I ]: core.setup_handlers(
+    handlers=['action', 'event'],
+    actions=<action-label-set>,
+    events=<event-label-set>
+)
+[ O ][ OK  ]: {
+    'failed': False,
+    'actions': {
+        '<action-label type-str>': <action-handler type-handler-object>
+    },
+    'events': {
+        '<event-label type-str>': <event-handler type-handler-object>
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWallet Client Core State
+[ I ]: core.state()
+[ O ][ OK  ]: {
+    'failed': False,
+    'state': {
+        'create_date': <creation-date type-datetime-object>,
+        'write_date': <last-write-date type-datetime-object>,
+        'actions': {
+            '<action-label type-str>': <action-handler type-handler-object>
+        },
+        'events': {
+            '<event-label type-str>': <event-handler type-handler-object>
+        },
+        'status': <last-execution-response-status type-bool>,
+        'instruction_set': <last-execution-instruction-set type-dict>,
+        'instruction_set_response': <last-execution-instruction-set-response type-dict>,
+        'response': <last-execution-response type-http-request-object>,
+        'timestamp': <last-execution-timestamp type-datetime-object>,
+        'config_file': <core-config-file-path type-str>,
+        'config': {
+            'config_timestamp': <config-init-timestamp type-datetime-object>,
+            'config_file': <config-file-path type-str>,
+            'log_config': <log-settup-section type-dict>,
+            'cloud_config': <cloud-settup-section type-dict>
+        },
+        'execution_category': <exection-type type-str>,
+        'previous_label': <previous-execution-label type-str>,
+        'previous_action': <previous-action-label type-str>,
+        'previous_event': <previous-event-label type-str>
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine Purge
+[ I ]: core.purge()
+[ O ][ OK  ]: {
+    'failed': False,
+    'core': {
+        'failed': False,
+        'updated': <purged-core-field-set type-list>,
+        'state': {
+            'create_date': <creation-date type-datetime-object>,
+            'write_date': <last-write-date type-datetime-object>,
+            'actions': <action-handler-map type-dict>,
+            'events': <event-handler-map type-dict>,
+            'status': <last-execution-response-status type-bool>,
+            'instruction_set': <last-execution-instruction-set type-dict>,
+            'instruction_set_response': <last-execution-instruction-set-response type-dict>,
+            'response': <last-execution-response type-http-request-object>,
+            'timestamp': <last-execution-timestamp type-datetime-object>,
+            'config_file': <core-config-file-path type-str>,
+            'config': {
+                'config_timestamp': <config-load-timestamp type-datetime-object>,
+                'config_file': <config-file-path type-str>,
+                'log_config': {
+                    'log-name': <type-str>,
+                    'log-level': <type-str>,
+                    'log-dir': <directory-name type-str>,
+                    'log-file': <file-name type-str>,
+                    'log-path': <full-path type-str>,
+                    'log-record-format': <type-str>,
+                    'log-date-format': <type-str>
+                },
+                'cloud_config': {
+                    'ewsc-address': <ewsc-staging-server-address type-str>,
+                    'ewsc-port': <ewsc-staging-server-port type-int>,
+                    'ewsc-url': <ewsc-instruction-set-url type-str>
+                }
+            },
+            'execution_category': <exection-type type-str>,
+            'previous_label': <previous-execution-label type-str>,
+            'previous_action': <previous-action-label type-str>,
+            'previous_event': <previous-event-label type-str>
+        }
+    },
+    'resource': {
+        'failed': False
+        '<resource-label type-str>': <resource-handler-value-set type-dict>
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine NewSpecificActionHandlers
+[ I ]: core.new(
+    new='handlers',
+    handlers=['action'],
+    actions=<action-label-set>
+)
+[ O ][ OK  ]: {
+    'failed': False,
+    'actions': {
+        'failed': False,
+        '<action-label type-str>': <action-handler type-handler-object>
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine NewSpecificEventHandlers
+[ I ]: core.new(
+    new='handlers',
+    handlers=['event'],
+    events=<event-label-set>
+)
+[ O ][ OK  ]: {
+    'failed': False,
+    'events': {
+        'failed': False,
+        '<label>': <handler>
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine NewSpecificHandlers
+[ I ]: core.new(
+    new='handlers',
+    handlers=['action', 'event'],
+    actions=<action-label-set>,
+    events=<event-label-set>
+)
+[ O ][ OK  ]: {
+    'failed': False,
+    'actions': {
+        'failed': False,
+        '<label>': <handler>
+    },
+    'events': {
+        'failed': False,
+        '<label>': <handler>
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine LastResponse -
+[ I ]: core.last_response()
+[ O ][ OK  ]: {
+    'failed': False,
+    'execute': '<execution-handler-type type-str>',
+    'response': <response type-http-request-object>,
+    'action': '<action-handler-label type-str>',
+    'event': '<event-handler-label type-str>',
+    'instruction_set_response': <instruction-set-response type-dict>
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine SetupHandlers -
+[ I ]: core.setup_handlers()
+[ O ][ OK  ]: {
+    'failed': False,
+    'actions': {
+        'failed': False,
+        '<action-label type-str>': <action-handler type-handler-object>
+    'events': {
+        'failed': False,
+        '<event-label type-str>': <event-handler type-handler-object>
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine SetupSpecificActionHandlers
+[ I ]: core.setup_handlers(
+    handlers=['action'],
+    actions=<action-label-set type-list>
+)
+[ O ][ OK  ]: {
+    'failed': False,
+    'actions': {
+        '<action-label type-str>': <action-handler type-handler-object>
+    },
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
+
+[ * ]: EWCC Subroutine SetupSpecificEventHandlers
+[ I ]: core.setup_handlers(
+    handlers=['event'],
+    events=<event-label-set type-list>
+)
+[ O ][ OK  ]: {
+    'failed': False,
+    'events': {
+        '<event-label type-str>': <event-handler type-handler-object>
+    }
+}
+[ O ][ NOK ]: {
+    'failed': True,
+    'error': <error-message type-str>,
+    'warning': <warning-message type-str>
+}
+
